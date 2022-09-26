@@ -11,11 +11,11 @@ import com.squareup.moshi.JsonClass
 data class AccountInfo(
     val name: Short,
     val totalDepositedAmount: Long,
-//    val minimumDepositedAmount: Double,
-//    val penaltyRate: Double,
-//    val stakingDuration: Double,
-//    val rewardPeriod: Double,
-//    val startAt: Double,
+    val minimumDepositedAmount: Long,
+    val penaltyRate: Long,
+    val stakingDuration: Long,
+    val rewardPeriod: Long,
+    val startAt: Long,
 ) : BorshCodable
 
 class AccountInfoRule(
@@ -24,19 +24,19 @@ class AccountInfoRule(
     override fun read(input: BorshInput): AccountInfo {
         val name = input.readU16()
         val totalDepositedAmount: Long = input.readU64()
-//        val minimumDepositedAmount: Double = input.readF64()
-//        val penaltyRate: Double = input.readF64()
-//        val stakingDuration: Double = input.readF64()
-//        val rewardPeriod: Double = input.readF64()
-//        val startAt: Double = input.readF64()
+        val minimumDepositedAmount: Long = input.readU64()
+        val penaltyRate: Long = input.readU64()
+        val stakingDuration: Long = input.readU64()
+        val rewardPeriod: Long = input.readU64()
+        val startAt: Long = input.readU64()
         return AccountInfo(
             name,
             totalDepositedAmount,
-//            minimumDepositedAmount,
-//            penaltyRate,
-//            stakingDuration,
-//            rewardPeriod,
-//            startAt
+            minimumDepositedAmount,
+            penaltyRate,
+            stakingDuration,
+            rewardPeriod,
+            startAt
         )
     }
 
@@ -44,11 +44,11 @@ class AccountInfoRule(
         val accountInfo = obj as AccountInfo
         output.writeU16(accountInfo.name)
         output.writeU64(accountInfo.totalDepositedAmount)
-//        output.writeF64(accountInfo.minimumDepositedAmount)
-//        output.writeF64(accountInfo.penaltyRate)
-//        output.writeF64(accountInfo.stakingDuration)
-//        output.writeF64(accountInfo.rewardPeriod)
-//        output.writeF64(accountInfo.startAt)
+        output.writeU64(accountInfo.minimumDepositedAmount)
+        output.writeU64(accountInfo.penaltyRate)
+        output.writeU64(accountInfo.stakingDuration)
+        output.writeU64(accountInfo.rewardPeriod)
+        output.writeU64(accountInfo.startAt)
         return PublicKeyRule().writeZeros(output)
     }
 }
